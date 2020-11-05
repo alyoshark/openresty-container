@@ -27,5 +27,5 @@ It also drops a few modules that are not very commonly used (by me):
 To further customize it, simply ... read the code and change whatever you want to change
 
 ```bash
-docker build . -t whatever/openresty:1.17.8.1-slim
+docker build . -t whatever/openresty:1.17.8.2-slim
 ```
