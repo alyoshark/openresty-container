@@ -1,12 +1,11 @@
 ARG RESTY_IMAGE_BASE="debian"
 ARG RESTY_IMAGE_TAG="10.4-slim"
-ARG RESTY_VERSION="1.17.8.2"
+ARG RESTY_VERSION="1.19.3.1"
 
 FROM openresty/openresty:${RESTY_VERSION}-buster as builder
 
-ARG RESTY_VERSION="1.17.8.2"
-ARG COMMIT_HASH="4ae28b9b7f11b91e218ccab49cff3ff4db0f8152"
-ARG RESTY_MYSQL_VERSION="0.23"
+ARG RESTY_VERSION="1.19.3.1"
+ARG COMMIT_HASH="8bc185b8846d86313269e0676be36d31b9a2305b"
 
 COPY dpkg-buildpackage-rules /opt/rules
 
@@ -31,9 +30,7 @@ RUN curl -O https://codeload.github.com/openresty/openresty-packaging/zip/${COMM
     && cd openresty-packaging-${COMMIT_HASH}/deb \
     && mv /opt/rules openresty/debian/rules \
     && make OPTS='-uc -us' openresty-build \
-    && dpkg -i openresty_${RESTY_VERSION}-1~buster1_amd64.deb \
-    && curl -Lo /usr/local/openresty/lualib/resty/mysql.lua \
-        https://raw.githubusercontent.com/openresty/lua-resty-mysql/v${RESTY_MYSQL_VERSION}/lib/resty/mysql.lua
+    && dpkg -i openresty_${RESTY_VERSION}-1~buster1_amd64.deb
 
 # cleanup
 RUN rm -fr /usr/local/openresty/openssl/lib/*.a \
